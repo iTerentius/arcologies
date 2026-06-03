@@ -180,6 +180,15 @@ function glyphs:uxb(x, y, l)
   self:column(x, y, l)
 end
 
+function glyphs:switchboard(x, y, l)
+  self:floor(x, y, l)
+  graphics:rect(x+2, y, 2, 18, l)
+  graphics:rect(x+10, y, 2, 18, l)
+  graphics:rect(x+18, y, 2, 18, l)
+  graphics:rect(x+2, y+6, 18, 2, l)
+  graphics:rect(x+2, y+12, 18, 2, l)
+end
+
 function glyphs:pylon(x, y, l)
   graphics:rect(x+10, y, 2, 6, l)       -- top mast
   graphics:rect(x+4, y+6, 14, 2, l)     -- top crossbar
@@ -603,6 +612,15 @@ function glyphs:small_uxb(x, y, l)
   self:small_kasagi(x, y, l)
   self:small_second_floor(x, y, l)
   self:small_column(x, y, l)
+end
+
+function glyphs:small_switchboard(x, y, l)
+  self:small_floor(x, y, l)
+  graphics:mlrs(x-1, y-1, 1, 7, l)
+  graphics:mlrs(x+2, y-1, 1, 7, l)
+  graphics:mlrs(x+5, y-1, 1, 7, l)
+  graphics:mls(x-1, y+2, x+6, y+2, l)
+  graphics:mls(x-1, y+4, x+6, y+4, l)
 end
 
 function glyphs:small_pylon(x, y, l)

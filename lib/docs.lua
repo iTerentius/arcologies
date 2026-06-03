@@ -117,6 +117,15 @@ docs.sheets["UXB"] = {
   "to open ports."
 }
 
+docs.sheets["SWITCHBOARD"] = {
+  "Cycle CC values",
+  "like casino",
+  "cycles notes.",
+  "",
+  "Routes signals",
+  "to open ports."
+}
+
 docs.sheets["PYLON"] = {
   "Send MIDI CC",
   "to devices.",

@@ -50,6 +50,8 @@ function Cell:new(x, y, g)
   velocity_mixin.init(self)
   cc_number_mixin.init(self)
   cc_value_mixin.init(self)
+  cc_values_mixin.init(self)
+  slew_mixin.init(self)
   c.setup_bearing(c)
   c.setup_capacity(c)
   c.setup_channel(c)
@@ -88,6 +90,8 @@ function Cell:new(x, y, g)
   c.setup_velocity(c)
   c.setup_cc_number(c)
   c.setup_cc_value(c)
+  c.setup_cc_values(c)
+  c.setup_slew(c)
   c.target_max = #c.modulation_targets
   return c
 end
@@ -133,6 +137,7 @@ end
 function Cell:menu_items()
   local items = fn.deep_copy(self:get_attributes())
   items = self:inject_notes_into_menu(items)
+  items = self:inject_cc_values_into_menu(items)
   items = self:check_output_items(items)
   return items
 end
@@ -170,6 +175,8 @@ function Cell:callback(method)
     if self:is("WINDFARM") then self:close_all_ports() self:open_port(self:get_bearing_cardinal()) end
   elseif method == "set_note_count" then
     if self:has("INDEX") then self:set_max_state_index(self:get_note_count()) end
+  elseif method == "set_cc_value_count" then
+    if self:has("INDEX") then self:set_max_state_index(self:get_cc_value_count()) end
   end
 end
 
@@ -201,6 +208,10 @@ function Cell:change_checks()
          self:set_note_count(8)
          self:setup_notes(8)
          self:set_output_by_string("MIDI")
+
+  elseif self:is("SWITCHBOARD") then
+         self:set_cc_value_count(8)
+         self:setup_cc_values(8)
 
   elseif self:is("AVIARY") then
          self:set_note_count(1)

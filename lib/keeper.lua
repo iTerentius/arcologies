@@ -51,7 +51,12 @@ function keeper:collision(signal, cell)
 
   -- pylons send midi cc
   elseif cell:is("PYLON") then
-    _midi:cc(cell.cc_number, cell.cc_value, cell.channel, cell.device)
+    _midi:cc_slewed(cell.cc_number, cell.cc_value, cell.channel, cell.device, cell.slew, cell.id)
+
+  -- switchboards cycle through cc values
+  elseif cell:is("SWITCHBOARD") then
+    cell:over_cycle_state_index(cell:topography_operation())
+    _midi:cc_slewed(cell.cc_number, cell.cc_values[cell.state_index], cell.channel, cell.device, cell.slew, cell.id)
 
   -- aviaries play single notes via crow
   elseif cell:is("AVIARY") then
@@ -141,6 +146,7 @@ function keeper:collision(signal, cell)
   or cell:is("VALE")
   or cell:is("UXB")
   or cell:is("PYLON")
+  or cell:is("SWITCHBOARD")
   or cell:is("CASINO")
   or cell:is("AVIARY")
   or cell:is("FOREST")

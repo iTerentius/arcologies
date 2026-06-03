@@ -7,6 +7,13 @@ function _midi.init()
   _midi.devices[3] = midi.connect(3)
   _midi.devices[4] = midi.connect(4)
   _midi.notes = {}
+  _midi.cc_state = {}
+  _midi.slews = {}
+  _midi.slew_metro = metro.init()
+  _midi.slew_metro.time = 1 / 30
+  _midi.slew_metro.count = -1
+  _midi.slew_metro.event = function() _midi:slew_tick() end
+  _midi.slew_metro:start()
 end
 
 function _midi:setup()
@@ -49,7 +56,44 @@ function _midi:cc(number, value, channel, device)
   self.devices[device]:cc(number, value, channel)
 end
 
+function _midi:cc_slewed(number, value, channel, device, slew_steps, cell_id)
+  local from = (self.slews[cell_id] and self.slews[cell_id].current)
+            or self.cc_state[cell_id]
+            or value
+  if slew_steps == 0 then
+    self.slews[cell_id] = nil
+    self:cc(number, value, channel, device)
+    self.cc_state[cell_id] = value
+    return
+  end
+  self.slews[cell_id] = {
+    number = number,
+    from = from,
+    current = from,
+    target = value,
+    steps_total = slew_steps,
+    steps_done = 0,
+    channel = channel,
+    device = device
+  }
+end
+
+function _midi:slew_tick()
+  for id, s in pairs(self.slews) do
+    s.steps_done = s.steps_done + 1
+    local t = math.min(s.steps_done / s.steps_total, 1.0)
+    s.current = math.floor(s.from + (s.target - s.from) * t + 0.5)
+    self:cc(s.number, s.current, s.channel, s.device)
+    if s.steps_done >= s.steps_total then
+      self.cc_state[id] = s.target
+      self.slews[id] = nil
+    end
+  end
+end
+
 function _midi:all_off()
+  self.slews = {}
+  self.cc_state = {}
   for note = 1, 127 do
     for channel = 1, 16 do
       for device = 1, 4 do
