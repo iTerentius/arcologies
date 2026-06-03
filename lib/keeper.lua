@@ -49,6 +49,10 @@ function keeper:collision(signal, cell)
   elseif cell:is("UXB") then
     _midi:play(cell.notes[1], cell.velocity, cell.channel, cell.duration, cell.device)
 
+  -- pylons send midi cc
+  elseif cell:is("PYLON") then
+    _midi:cc(cell.cc_number, cell.cc_value, cell.channel, cell.device)
+
   -- aviaries play single notes via crow
   elseif cell:is("AVIARY") then
     _crow:play(cell.notes[1], cell.crow_out)
@@ -136,6 +140,7 @@ function keeper:collision(signal, cell)
   or cell:is("CRYPT")
   or cell:is("VALE")
   or cell:is("UXB")
+  or cell:is("PYLON")
   or cell:is("CASINO")
   or cell:is("AVIARY")
   or cell:is("FOREST")

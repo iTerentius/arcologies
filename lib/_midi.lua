@@ -45,6 +45,10 @@ function _midi:register_note(tranposed_note, velocity, channel, duration, device
   table.insert(self.notes, new)
 end
 
+function _midi:cc(number, value, channel, device)
+  self.devices[device]:cc(number, value, channel)
+end
+
 function _midi:all_off()
   for note = 1, 127 do
     for channel = 1, 16 do

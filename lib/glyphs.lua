@@ -180,6 +180,16 @@ function glyphs:uxb(x, y, l)
   self:column(x, y, l)
 end
 
+function glyphs:pylon(x, y, l)
+  graphics:rect(x+10, y, 2, 6, l)       -- top mast
+  graphics:rect(x+4, y+6, 14, 2, l)     -- top crossbar
+  graphics:rect(x+10, y+8, 2, 6, l)     -- upper shaft
+  graphics:rect(x+2, y+14, 18, 2, l)    -- mid crossbar
+  graphics:rect(x+10, y+16, 2, 4, l)    -- lower shaft
+  graphics:rect(x, y+18, 6, 2, l)       -- left foot
+  graphics:rect(x+16, y+18, 6, 2, l)    -- right foot
+end
+
 function glyphs:casino(x, y, l)
   self:half_left_wall(x, y, l)
   self:half_right_wall(x, y, l)
@@ -593,6 +603,16 @@ function glyphs:small_uxb(x, y, l)
   self:small_kasagi(x, y, l)
   self:small_second_floor(x, y, l)
   self:small_column(x, y, l)
+end
+
+function glyphs:small_pylon(x, y, l)
+  graphics:mlrs(x+2, y-1, 1, 2, l)       -- top mast
+  graphics:mls(x, y+1, x+5, y+1, l)      -- top crossbar
+  graphics:mlrs(x+2, y+2, 1, 2, l)       -- upper shaft
+  graphics:mls(x-1, y+4, x+6, y+4, l)   -- mid crossbar
+  graphics:mlrs(x+2, y+5, 1, 2, l)       -- lower shaft
+  graphics:mls(x-1, y+7, x+1, y+7, l)   -- left foot
+  graphics:mls(x+4, y+7, x+6, y+7, l)   -- right foot
 end
 
 function glyphs:small_casino(x, y, l)

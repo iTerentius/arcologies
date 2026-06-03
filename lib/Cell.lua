@@ -48,6 +48,8 @@ function Cell:new(x, y, g)
   topography_mixin.init(self)
   turing_mixin.init(self)
   velocity_mixin.init(self)
+  cc_number_mixin.init(self)
+  cc_value_mixin.init(self)
   c.setup_bearing(c)
   c.setup_capacity(c)
   c.setup_channel(c)
@@ -84,6 +86,8 @@ function Cell:new(x, y, g)
   c.setup_topography(c)
   c.setup_turing(c)
   c.setup_velocity(c)
+  c.setup_cc_number(c)
+  c.setup_cc_value(c)
   c.target_max = #c.modulation_targets
   return c
 end

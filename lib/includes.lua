@@ -35,6 +35,8 @@ attributes of cells. adding more minimally requires:
 local mixins = {
   "bearing_mixin",
   "capacity_mixin",
+  "cc_number_mixin",
+  "cc_value_mixin",
   "channel_mixin",
   "charge_mixin",
   "clockwise_mixin",

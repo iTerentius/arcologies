@@ -117,6 +117,14 @@ docs.sheets["UXB"] = {
   "to open ports."
 }
 
+docs.sheets["PYLON"] = {
+  "Send MIDI CC",
+  "to devices.",
+  "",
+  "Routes signals",
+  "to open ports."
+}
+
 docs.sheets["CASINO"] = {
   "Is to uxbs what",
   "topiaries are",
