@@ -52,6 +52,7 @@ function Cell:new(x, y, g)
   cc_value_mixin.init(self)
   cc_values_mixin.init(self)
   slew_mixin.init(self)
+  osc_id_mixin.init(self)
   c.setup_bearing(c)
   c.setup_capacity(c)
   c.setup_channel(c)
@@ -92,6 +93,7 @@ function Cell:new(x, y, g)
   c.setup_cc_value(c)
   c.setup_cc_values(c)
   c.setup_slew(c)
+  c.setup_osc_id(c)
   c.target_max = #c.modulation_targets
   return c
 end

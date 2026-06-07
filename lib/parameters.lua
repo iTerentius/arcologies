@@ -129,6 +129,30 @@ function parameters.init()
   params:set_action("arc_orientation", function(index) _arc:set_orientation(parameters.arc_orientations[index]) end)
 
   params:add_separator("")
+  params:add_separator("BEACON / OSC")
+
+  local function apply_osc_target()
+    local ip = params:get("osc_ip_1") .. "."
+            .. params:get("osc_ip_2") .. "."
+            .. params:get("osc_ip_3") .. "."
+            .. params:get("osc_ip_4")
+    local port = params:get("osc_port")
+    _osc.target = {ip, port}
+    print("_osc: target → " .. ip .. ":" .. port)
+  end
+
+  params:add{ type = "number", id = "osc_ip_1", name = "IP OCTET 1", min = 0, max = 255, default = 127 }
+  params:set_action("osc_ip_1", function() apply_osc_target() end)
+  params:add{ type = "number", id = "osc_ip_2", name = "IP OCTET 2", min = 0, max = 255, default = 0 }
+  params:set_action("osc_ip_2", function() apply_osc_target() end)
+  params:add{ type = "number", id = "osc_ip_3", name = "IP OCTET 3", min = 0, max = 255, default = 0 }
+  params:set_action("osc_ip_3", function() apply_osc_target() end)
+  params:add{ type = "number", id = "osc_ip_4", name = "IP OCTET 4", min = 0, max = 255, default = 1 }
+  params:set_action("osc_ip_4", function() apply_osc_target() end)
+  params:add{ type = "number", id = "osc_port", name = "OSC PORT", min = 1, max = 65535, default = 57120 }
+  params:set_action("osc_port", function() apply_osc_target() end)
+
+  params:add_separator("")
   params:add_separator("STRUCTURES")
 
   parameters.structures = {}

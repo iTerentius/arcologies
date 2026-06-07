@@ -34,6 +34,64 @@ This README is for developers looking to contribute in building **arcologies**.
 
 Contributions are welcome, however I have some pretty firm boundaries about what **arcologies** is and is not. I recommend watching [all the videos in this playlist](https://www.youtube.com/playlist?list=PLe1BFUbUceS2N5GLgORKQrw1bsz2ZLwJ3) to get inside my head a bit more. If you have an idea for a significant undertaking that you'd like to contribute, please consider talking with me first. I'd hate to see you pour a bunch of energy into a feature that doesn't align with the vision. That said, I'll consider all feature requests! Thank you.
 
+## Fork Additions
+
+This fork adds a BEACON cell type and OSC output module for routing arcologies triggers to an external SuperCollider instance.
+
+### BEACON
+
+A new cell structure that fires an OSC message when a signal collides with it. Behaves like UXB/PYLON in all other respects — receives signals on open ports and routes them onward.
+
+**Attribute:** `ID` (integer 1–99). Set this on each cell in the designer. The number is the only contract between Norns and SC — SC maps IDs to pattern handlers.
+
+**Files added/modified:**
+
+| File | Change |
+|------|--------|
+| `lib/_osc.lua` | New OSC send module |
+| `lib/mixins/osc_id_mixin.lua` | New `ID` attribute mixin |
+| `lib/structures.lua` | Registers `BEACON` |
+| `lib/keeper.lua` | Collision handler + signal routing |
+| `lib/glyphs.lua` | Full and small glyph (broadcast tower) |
+| `lib/docs.lua` | In-app description |
+| `lib/includes.lua` | Loads `osc_id_mixin` and `_osc` |
+| `lib/Cell.lua` | Initialises `osc_id_mixin` |
+| `lib/parameters.lua` | Adds `BEACON / OSC` params section |
+
+### OSC Module (`_osc.lua`)
+
+Sends `/arc/trigger` with a single integer argument (the cell's ID) when a BEACON is triggered.
+
+```lua
+-- message format on SC side:
+-- msg[1] = "/arc/trigger"
+-- msg[3] = id (integer)
+OSCdef(\name, { |msg| var id = msg[3]; ... }, "/arc/trigger")
+```
+
+### Configuring the OSC Target
+
+The target IP and port are set from the **BEACON / OSC** section of the Norns params menu — no file editing needed. Saves and restores with PSETs.
+
+```
+IP OCTET 1   192
+IP OCTET 2   168
+IP OCTET 3   1
+IP OCTET 4   42
+OSC PORT     57120
+```
+
+Default is `127.0.0.1:57120` (loopback). SC's default receive port is `57120`.
+
+### SC Side
+
+The companion SC include is `norns-router.scd` in the SC system repo. Register handlers keyed by the same integers set on BEACON cells:
+
+```supercollider
+~song[1] = { ~toggle.(\bassline) };
+~song[2] = { ~oneshot.(\fill, 2) };
+```
+
 ## Credits
 
 Software design by [Tyler Etters](https://nor.the-rn.info).

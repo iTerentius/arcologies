@@ -34,6 +34,7 @@ attributes of cells. adding more minimally requires:
 ]]
 local mixins = {
   "bearing_mixin",
+  "osc_id_mixin",
   "capacity_mixin",
   "cc_number_mixin",
   "cc_value_mixin",
@@ -131,6 +132,10 @@ menu = include(lib .. "menu")
 
 -- midi interface
 _midi = include(lib .. "_midi")
+
+-- osc interface (beacon cells)
+_osc = include(lib .. "_osc")
+_osc.init()
 
 -- controller for norns pages
 page = include(lib .. "page")

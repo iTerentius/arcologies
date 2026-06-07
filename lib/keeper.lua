@@ -116,6 +116,10 @@ function keeper:collision(signal, cell)
     cell:over_cycle_state_index(cell:topography_operation())
     _crow:jf(cell.notes[cell.state_index])
 
+  -- beacons send osc triggers
+  elseif cell:is("BEACON") then
+    _osc:trigger(cell.osc_id)
+
   -- hydroponics operate at a distance
   elseif cell:is("HYDROPONICS") then
     keeper:hydroponics(cell)
@@ -153,7 +157,8 @@ function keeper:collision(signal, cell)
   or cell:is("HYDROPONICS")
   or cell:is("MIRAGE")
   or cell:is("AUTON")
-  or cell:is("APIARY") then
+  or cell:is("APIARY")
+  or cell:is("BEACON") then
     for k, port in pairs(cell.ports) do
           if (port == "n" and signal.heading ~= "s") then self:create_signal(cell.x, cell.y - 1, "n", "tomorrow")
       elseif (port == "e" and signal.heading ~= "w") then self:create_signal(cell.x + 1, cell.y, "e", "tomorrow")

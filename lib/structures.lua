@@ -43,6 +43,7 @@ function structures.init()
   structures:register("FRACTURE",     { "NOTES", "RANGE MIN", "RANGE MAX", "OUTPUT", "DURATION", "CHANNEL", "DEVICE" })
   structures:register("CLOAKROOM",    { "TARGET", "PSYOP" } )
   structures:register("APIARY",       { "INDEX", "NOTE COUNT", "NOTES", "TOPOGRAPHY", "DURATION", "VELOCITY", "NB VOICE", "NB SELECT"})
+  structures:register("BEACON",       { "ID" })
 end
 
 function structures:register(name, attributes)

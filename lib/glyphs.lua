@@ -199,6 +199,15 @@ function glyphs:pylon(x, y, l)
   graphics:rect(x+16, y+18, 6, 2, l)    -- right foot
 end
 
+function glyphs:beacon(x, y, l)
+  graphics:rect(x+10, y, 2, 20, l)       -- mast
+  graphics:rect(x+5, y+20, 12, 2, l)     -- base platform
+  graphics:rect(x+7, y+2, 2, 2, l)       -- inner left arc
+  graphics:rect(x+13, y+2, 2, 2, l)      -- inner right arc
+  graphics:rect(x+3, y+6, 2, 2, l)       -- outer left arc
+  graphics:rect(x+17, y+6, 2, 2, l)      -- outer right arc
+end
+
 function glyphs:casino(x, y, l)
   self:half_left_wall(x, y, l)
   self:half_right_wall(x, y, l)
@@ -631,6 +640,15 @@ function glyphs:small_pylon(x, y, l)
   graphics:mlrs(x+2, y+5, 1, 2, l)       -- lower shaft
   graphics:mls(x-1, y+7, x+1, y+7, l)   -- left foot
   graphics:mls(x+4, y+7, x+6, y+7, l)   -- right foot
+end
+
+function glyphs:small_beacon(x, y, l)
+  graphics:mlrs(x+2, y-1, 1, 8, l)         -- mast
+  graphics:mls(x, y+7, x+5, y+7, l)        -- base platform
+  graphics:mlrs(x, y+1, 1, 1, l)           -- inner left arc
+  graphics:mlrs(x+4, y+1, 1, 1, l)         -- inner right arc
+  graphics:mlrs(x-2, y+3, 1, 1, l)         -- outer left arc
+  graphics:mlrs(x+6, y+3, 1, 1, l)         -- outer right arc
 end
 
 function glyphs:small_casino(x, y, l)

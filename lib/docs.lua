@@ -234,4 +234,13 @@ docs.sheets["APIARY"] = {
   "with signals."
 }
 
+docs.sheets["BEACON"] = {
+  "Send OSC trigger",
+  "to a connected",
+  "device.",
+  "",
+  "Routes signals",
+  "to open ports."
+}
+
 return docs
