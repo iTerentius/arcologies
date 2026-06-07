@@ -35,11 +35,6 @@ function menu:render(bool)
       local offset = 10 + (i * 8) - (self.offset * 8)
       -- menu item
       graphics:text(2, offset, item, 15)
-      -- exception for external tempo control
-      if not fn.is_clock_internal() and item == "BPM" then
-        graphics:text(2, offset, item, 5)
-        graphics:mls(2, offset - 2, 40, offset - 2, 15)
-      end
       -- all values come from the mixins
       if page:get_page_title() == "DESIGNER" and render_values then
         graphics:text(56, offset, keeper.selected_cell:get_menu_value_by_attribute(item)(keeper.selected_cell), 0)
@@ -118,14 +113,10 @@ function menu:get_selected_item_string()
 end
 
 function menu:handle_scroll_bpm(value, mode)
-  if fn.is_clock_internal() then
-    if mode == "delta" then
-      params:set("clock_tempo", params:get("clock_tempo") + value)
-    elseif mode == "absolute" then
-      params:set("clock_tempo", value)
-    end
-  else
-    graphics:set_message("EXTERNAL CONTROL ON", counters.default_message_length)
+  if mode == "delta" then
+    params:set("clock_tempo", params:get("clock_tempo") + value)
+  elseif mode == "absolute" then
+    params:set("clock_tempo", value)
   end
 end
 
