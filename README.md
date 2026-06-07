@@ -63,10 +63,10 @@ A new cell structure that fires an OSC message when a signal collides with it. B
 Sends `/arc/trigger` with a single integer argument (the cell's ID) when a BEACON is triggered.
 
 ```lua
--- message format on SC side:
--- msg[1] = "/arc/trigger"
--- msg[3] = id (integer)
-OSCdef(\name, { |msg| var id = msg[3]; ... }, "/arc/trigger")
+-- message format on SC side (OSCdef msg = [path, arg1, ...]):
+-- msg[0] = "/arc/trigger"
+-- msg[1] = id (integer)
+OSCdef(\name, { |msg| var id = msg[1]; ... }, "/arc/trigger")
 ```
 
 ### Configuring the OSC Target
