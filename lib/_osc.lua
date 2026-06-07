@@ -12,7 +12,7 @@ end
 -- Send /arc/trigger with integer id.
 -- SC side: OSCdef(\name, { |msg| var id = msg[3]; ... }, "/arc/trigger")
 function _osc:trigger(id)
-  osc.send(self.target, "/arc/trigger", {id})
+  osc.send(self.target, "/arc/trigger", {{"i", id}})
 end
 
 return _osc
