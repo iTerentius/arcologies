@@ -55,6 +55,7 @@ end
 
 function counters:start()
   self:set_playback(1)
+  _osc:start()
   graphics:set_message("PLAYING", self.default_message_length)
 end
 
@@ -65,6 +66,7 @@ end
 function counters:stop()
   self:set_playback(0)
   _midi:all_off()
+  _osc:stop()
   graphics:set_message("PAUSED", self.default_message_length)
 end
 

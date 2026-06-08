@@ -15,7 +15,21 @@ function _osc:trigger(id)
   local ok, err = pcall(function()
     osc.send(self.target, "/arc/trigger", {id})
   end)
-  if not ok then print("_osc: send error: " .. tostring(err)) end
+  if not ok then print("_osc: trigger error: " .. tostring(err)) end
+end
+
+function _osc:start()
+  local ok, err = pcall(function()
+    osc.send(self.target, "/arc/start", {})
+  end)
+  if not ok then print("_osc: start error: " .. tostring(err)) end
+end
+
+function _osc:stop()
+  local ok, err = pcall(function()
+    osc.send(self.target, "/arc/stop", {})
+  end)
+  if not ok then print("_osc: stop error: " .. tostring(err)) end
 end
 
 return _osc
