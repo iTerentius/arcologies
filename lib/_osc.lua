@@ -9,11 +9,12 @@ function _osc.init()
   print("_osc: loaded")
 end
 
--- Send /arc/trigger with integer id.
--- SC side: OSCdef(\name, { |msg| var id = msg[3]; ... }, "/arc/trigger")
-function _osc:trigger(id)
+-- Send /arc/trigger with integer id and retrigger cooldown (beats, 0 = immediate).
+-- SC side: msg[1]=id, msg[2]=retrigger
+function _osc:trigger(id, retrigger)
+  local r = retrigger or 0
   local ok, err = pcall(function()
-    osc.send(self.target, "/arc/trigger", {id})
+    osc.send(self.target, "/arc/trigger", {id, r})
   end)
   if not ok then print("_osc: trigger error: " .. tostring(err)) end
 end
