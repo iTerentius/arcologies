@@ -118,7 +118,7 @@ function keeper:collision(signal, cell)
 
   -- beacons send osc triggers
   elseif cell:is("BEACON") then
-    _osc:trigger(cell.osc_id, cell.osc_retrigger)
+    _osc:trigger(cell.osc_id, cell.osc_retrigger, cell.osc_mode)
 
   -- hydroponics operate at a distance
   elseif cell:is("HYDROPONICS") then
