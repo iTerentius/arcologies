@@ -33,6 +33,19 @@ function filesystem.load(path)
   end
 end
 
+function filesystem:generate_save_name()
+  local date = os.date("%Y.%m.%d")
+  local escaped = date:gsub("%.", "%%.")
+  local pattern = "^" .. escaped .. "%-(%d%d%d)%.arcology$"
+  local max_inc = 0
+  local files = util.scandir(norns.state.data)
+  for _, f in pairs(files) do
+    local inc = string.match(f, pattern)
+    if inc then max_inc = math.max(max_inc, tonumber(inc)) end
+  end
+  return string.format("%s-%03d", date, max_inc + 1)
+end
+
 function filesystem.save(text)
   if text then
     print("saving...")

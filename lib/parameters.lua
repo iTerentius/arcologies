@@ -6,7 +6,10 @@ function parameters.init()
   params:add_separator("- A R C O L O G I E S -")
 
   params:add_trigger("save", "< SAVE ARCOLOGY" )
-  params:set_action("save", function(x) textentry.enter(filesystem.save) end)
+  params:set_action("save", function(x) textentry.enter(filesystem.save, filesystem:generate_save_name()) end)
+
+  params:add_trigger("quick_save", "< QUICK SAVE" )
+  params:set_action("quick_save", function(x) filesystem.save(filesystem:generate_save_name()) end)
 
   params:add_trigger("load", "> LOAD ARCOLOGY" )
   params:set_action("load", function(x) fileselect.enter(norns.state.data, filesystem.load) end)
